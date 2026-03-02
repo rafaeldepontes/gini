@@ -3,6 +3,7 @@ package builder
 import (
 	"bufio"
 	"context"
+	"errors"
 	"fmt"
 	"os"
 
@@ -52,6 +53,8 @@ func NewRootCmd() *RootCmd {
 		Short: "Initialize Go projects",
 	}
 	cmd.AddCommand(rc.BuildProject())
+	cmd.SilenceErrors = true
+	cmd.SilenceUsage = true
 
 	rc.cmd = cmd
 	return rc
@@ -86,9 +89,10 @@ func (rc *RootCmd) RevertChanges() error {
 // project from it, so it's basically a bunch of edge cases...
 func (rc *RootCmd) BuildProject() *cobra.Command {
 	return &cobra.Command{
-		Use:   "build",
-		Short: "Build the project based on some questions",
-		Long:  LongDescription,
+		Use:     "build",
+		Aliases: []string{"b"},
+		Short:   "Build the project based on some questions",
+		Long:    LongDescription,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			ctx := cmd.Context()
 
@@ -103,21 +107,28 @@ func (rc *RootCmd) BuildProject() *cobra.Command {
 				return err
 			}
 
-			if hasDocker(rc.Log) {
+			want, err := hasDocker(ctx, rc.Log)
+			if err != nil {
+				return err
+			}
+
+			if want {
 				// Manages part of the docker logic
 				if err := createDocker(projectName); err != nil {
 					return err
 				}
 
 				// Manages brokers
-				if err := messageBrokerFlow(rc); err != nil {
+				if err := messageBrokerFlow(ctx, rc); err != nil {
 					return err
 				}
 
 				// Manages databases
-				if err := databaseFlow(rc); err != nil {
+				if err := databaseFlow(ctx, rc); err != nil {
 					return err
 				}
+
+				// TODO: Add the ToolStack here for anyone that wants to use AWS.
 
 				if err := addGolangCompose(rc); err != nil {
 					return err
@@ -128,8 +139,16 @@ func (rc *RootCmd) BuildProject() *cobra.Command {
 				}
 			}
 
-			if hasNix(rc.Log) {
-				wantsNixCompatFiles := hasNixCompatFiles(rc.Log)
+			want, err = hasNix(ctx, rc.Log)
+			if err != nil {
+				return err
+			}
+
+			if want {
+				wantsNixCompatFiles, err := hasNixCompatFiles(ctx, rc.Log)
+				if err != nil {
+					return err
+				}
 
 				if err := createNixFiles(rc, wantsNixCompatFiles); err != nil {
 					return err
@@ -164,7 +183,7 @@ func scanLine(ctx context.Context) (string, error) {
 
 	select {
 	case <-ctx.Done():
-		return "", ctx.Err()
+		return "", errors.New("Reverting changes...")
 	case err := <-errCh:
 		return "", err
 	case line := <-ch:
