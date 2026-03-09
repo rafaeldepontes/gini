@@ -22,7 +22,7 @@ var goModTemplate string
 func createGoMod(ctx context.Context, rc *RootCmd) error {
 	name := path.Join(rc.projectName, GoModFile)
 
-	if path.Base(rc.projectName) == rc.projectName {
+	if !validatePath(rc.projectName) {
 		// If the directory already exists, the system will delete the old dir...
 		// to prevent this, we are ignoring the error... But I still want to find
 		// a way to handle this... For now, this approach works.
@@ -48,7 +48,7 @@ func createGoMod(ctx context.Context, rc *RootCmd) error {
 
 	templateData := make(map[string]string)
 	templateData["ProjectName"] = rc.projectName
-	if filepath.Base(rc.projectName) == rc.projectName {
+	if validatePath(rc.projectName) {
 		dir, _ := os.Getwd()
 		templateData["ProjectName"] = filepath.Base(dir)
 	}
@@ -95,4 +95,8 @@ func addGolangCompose(rc *RootCmd) error {
 		return err
 	}
 	return nil
+}
+
+func validatePath(src string) bool {
+	return src == "" || src == "." || src == "/" || src == "./"
 }
