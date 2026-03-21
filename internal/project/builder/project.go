@@ -123,6 +123,9 @@ func (rc *RootCmd) BuildProject() *cobra.Command {
 	}
 }
 
+// Update runs "go install github.com/rafaeldepontes/gini@latest"
+//
+// If any update is available it will be installed.
 func (rc *RootCmd) Update() *cobra.Command {
 	return &cobra.Command{
 		Use:     "update",
