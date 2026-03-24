@@ -68,7 +68,7 @@ func createDocker(name string) error {
 	if err := os.WriteFile(
 		pathNameDF,
 		templates.DockerFile,
-		OwnerPropertyMode,
+		DefaultFileMode,
 	); err != nil {
 		return err
 	}
@@ -78,6 +78,6 @@ func createDocker(name string) error {
 	return os.WriteFile(
 		pathNameDC,
 		[]byte("services:\n"),
-		OwnerPropertyMode,
+		DefaultFileMode,
 	)
 }

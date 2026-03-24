@@ -66,7 +66,7 @@ func addGolangCompose(rc *RootCmd) error {
 	f, err := os.OpenFile(
 		path.Join(rc.projectName, DockerCompose),
 		os.O_RDWR|os.O_APPEND,
-		OwnerPropertyMode,
+		DefaultFileMode,
 	)
 	if err != nil {
 		return err

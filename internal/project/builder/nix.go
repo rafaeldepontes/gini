@@ -145,7 +145,7 @@ func createDerivationGitignore(rc *RootCmd) error {
 	filename := path.Join(rc.projectName, ".gitignore")
 	textToAppend := "/out\n\n"
 
-	f, err := os.OpenFile(filename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, OwnerPropertyMode)
+	f, err := os.OpenFile(filename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, DefaultFileMode)
 	if err != nil {
 		return err
 	}

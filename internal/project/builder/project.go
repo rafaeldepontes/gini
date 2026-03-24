@@ -16,7 +16,7 @@ var LongDescription string = `Build the project and put it into a new directory,
 const (
 	Version              = "1.0.15"
 	Name                 = "Gini"
-	OwnerPropertyMode    = 0644
+	DefaultFileMode      = 0644
 	DefaultDirectoryMode = 0755
 )
 

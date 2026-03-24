@@ -106,7 +106,7 @@ func createCompose(rc *RootCmd, compose []byte, dbName string) error {
 	f, err := os.OpenFile(
 		path.Join(rc.projectName, DockerCompose),
 		os.O_RDWR|os.O_APPEND,
-		OwnerPropertyMode,
+		DefaultFileMode,
 	)
 	if err != nil {
 		return err
@@ -141,7 +141,7 @@ func createGenericCompose(rc *RootCmd, compose []byte, serviceName string) error
 	f, err := os.OpenFile(
 		path.Join(rc.projectName, DockerCompose),
 		os.O_RDWR|os.O_APPEND,
-		OwnerPropertyMode,
+		DefaultFileMode,
 	)
 	if err != nil {
 		return err

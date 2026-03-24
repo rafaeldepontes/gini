@@ -49,7 +49,7 @@ func createGitEnv(rc *RootCmd) error {
 	gitF, err := os.OpenFile(
 		gitPath,
 		os.O_CREATE|os.O_WRONLY|os.O_APPEND,
-		OwnerPropertyMode,
+		DefaultFileMode,
 	)
 	if err != nil {
 		return err
