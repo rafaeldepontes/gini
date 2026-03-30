@@ -120,7 +120,7 @@ func (rc RootCmd) BuildProject() *cobra.Command {
 				return err
 			}
 
-			if err := createGitEnv(rc); err != nil {
+			if err := createGitEnv(ctx, rc); err != nil {
 				return err
 			}
 			return nil
