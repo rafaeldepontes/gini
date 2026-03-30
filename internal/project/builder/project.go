@@ -91,7 +91,7 @@ func (rc RootCmd) RevertChanges() error {
 //
 // When called it will make some questions to the user and should build the whole
 // project from it, so it's basically a bunch of edge cases...
-func (rc RootCmd) BuildProject() *cobra.Command {
+func (rc *RootCmd) BuildProject() *cobra.Command {
 	return &cobra.Command{
 		Use:     "build",
 		Aliases: []string{"b"},
@@ -108,19 +108,19 @@ func (rc RootCmd) BuildProject() *cobra.Command {
 			}
 			rc.projectName = projectName
 
-			if err := createGoMod(ctx, rc); err != nil {
+			if err := createGoMod(ctx, *rc); err != nil {
 				return err
 			}
 
-			if err := dockerFlow(ctx, rc); err != nil {
+			if err := dockerFlow(ctx, *rc); err != nil {
 				return err
 			}
 
-			if err := nixFlow(ctx, rc); err != nil {
+			if err := nixFlow(ctx, *rc); err != nil {
 				return err
 			}
 
-			if err := createGitEnv(ctx, rc); err != nil {
+			if err := createGitEnv(ctx, *rc); err != nil {
 				return err
 			}
 			return nil
