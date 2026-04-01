@@ -1,45 +1,51 @@
 # Gini
-[![language](https://img.shields.io/badge/language-Go-00ADD8?labelColor=2F2F2F)](https://go.dev/doc/)
-[![version](https://img.shields.io/badge/version-1.26-9C27B0?labelColor=2F2F2F)](https://go.dev/doc/install)
 
-Gini is an open-source CLI tool that accelerates Go project setup by generating a structured project layout with essential tooling and sensible defaults.
+[![Language](https://img.shields.io/badge/language-Go-00ADD8?labelColor=2F2F2F)](https://go.dev/doc/)
+[![Version](https://img.shields.io/badge/version-1.26-9C27B0?labelColor=2F2F2F)](https://go.dev/doc/install)
+[![Go Reference](https://pkg.go.dev/badge/github.com/rafaeldepontes/gini.svg)](https://pkg.go.dev/github.com/rafaeldepontes/gini)
 
-It removes repetitive boilerplate so you can focus on writing actual business logic.
+Gini is an open-source CLI tool that speeds up Go project setup by generating a clean, structured project layout with sensible defaults and essential tooling.
+
+It removes repetitive boilerplate so you can focus on building your application logic.
 
 ---
 
 ## Features
 
-- Ready-to-use configuration and defaults
 - Fast project scaffolding
-- Minimal setup, zero friction
-- Designed for small project/MVP Go applications
+- Ready-to-use configuration and sensible defaults
+- Minimal setup with no unnecessary friction
+- Ideal for small Go projects and MVPs
 
 ---
 
-<img src="public/Gini.png">
+<img src="public/Gini.png" alt="Gini preview" />
 
 ---
 
-## How to use:
+## Usage
 
 ```bash
 gini build
+# or
+gini b
 ```
 
-**This will create a new directory with the predefined structure and configuration.**
+This creates a new directory with the predefined structure and configuration.
+
+---
 
 ## Installation
 
-## Go Install
+### Go install
 
 ```bash
 go install github.com/rafaeldepontes/gini@latest
 ```
 
-> This installs a go binary that will automatically bind to your $GOPATH, so don't worry much...
+This installs the `gini` binary into your `$GOPATH/bin` directory.
 
-Make sure `$GOPATH/bin` is in your `$PATH`.
+Make sure `$GOPATH/bin` is included in your `$PATH`.
 
 ---
 
@@ -51,19 +57,20 @@ Make sure `$GOPATH/bin` is in your `$PATH`.
 
 ## Why Gini?
 
-Setting up Go projects repeatedly is tedious and setting up the dockerfile and docker-compose is kinda lame...
-Gini provides a consistent starting point, helping you:
+Bootstrapping Go projects over and over can be repetitive. Setting up the Dockerfile, docker-compose, and basic project structure from scratch takes time that could be spent on actual development.
+
+Gini provides a consistent starting point and helps you:
 
 - Reduce setup time
-- Maintain project structure consistency
-- Create your Dockerfile and docker-compose with everything you need.
+- Keep project structure consistent
+- Generate Docker-related files with the essentials already in place
 
 ---
 
 ## Roadmap
 
 - Custom templates
-- Docker
+- Docker support
 - Configurable project layouts
 
 ---
@@ -72,7 +79,7 @@ Gini provides a consistent starting point, helping you:
 
 Contributions are welcome.
 
-Feel free to open issues or submit pull requests.
+Feel free to open an issue or submit a pull request.
 
 ---
 
@@ -82,4 +89,4 @@ Feel free to open issues or submit pull requests.
 
 ## Contact
 
-If something went wrong, please contact: `rafael.cr.carneiro@gmail.com`
+If something goes wrong, contact: `rafael.cr.carneiro@gmail.com`
