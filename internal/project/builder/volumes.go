@@ -19,8 +19,10 @@ func createVolumes(rc RootCmd) error {
 	}
 	defer f.Close()
 
-	if _, err = f.Write(templates.VolumeTemplate); err != nil {
-		return err
+	if len(rc.docker.volumes) > 0 {
+		if _, err = f.Write(templates.VolumeTemplate); err != nil {
+			return err
+		}
 	}
 
 	for name := range rc.docker.volumes {
